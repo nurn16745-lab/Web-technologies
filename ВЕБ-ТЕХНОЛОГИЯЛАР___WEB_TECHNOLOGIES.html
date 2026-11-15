@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="kk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ВЕБ-ТЕХНОЛОГИЯЛАР — WEB TECHNOLOGIES</title>
+    
+    <!-- Google Fonts with full Kazakh Cyrillic Extended support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0c0c0e',
+                        charcoal: '#141417',
+                        surface: '#19191e',
+                        gold: {
+                            DEFAULT: '#c5a46d',
+                            light: '#e5c687',
+                            dark: '#9a7d4a',
+                            muted: 'rgba(197, 164, 109, 0.14)'
+                        },
+                        ivory: '#f5f3ef',
+                        mist: '#a8a59e'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Dark Luxury scrollbar & refinements */
+        body {
+            background-color: #0c0c0e;
+            color: #f5f3ef;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c0c0e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #28282f;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c5a46d;
+        }
+
+        /* Subtle radial ambient lighting */
+        .luxury-glow {
+            background: radial-gradient(circle at 50% 0%, rgba(197, 164, 109, 0.12) 0%, rgba(12, 12, 14, 0) 68%);
+        }
+
+        .card-border {
+            border: 1px solid rgba(197, 164, 109, 0.18);
+            transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .card-border:hover {
+            border-color: rgba(229, 198, 135, 0.45);
+            box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.75);
+        }
+
+        /* Scroll reveal animation classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hairline gold gradient divider */
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(197, 164, 109, 0) 0%, rgba(197, 164, 109, 0.45) 50%, rgba(197, 164, 109, 0) 100%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold/30 selection:text-gold-light">
+
+    <!-- Sticky Minimalist Luxury Navigation -->
+    <header class="sticky top-0 z-50 bg-obsidian/85 backdrop-blur-md border-b border-gold/15">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#top" class="flex items-center gap-3 group">
+                <span class="w-2 h-2 rotate-45 bg-gold group-hover:bg-gold-light transition-colors"></span>
+                <span class="font-serif text-lg sm:text-xl tracking-wider text-ivory font-semibold">
+                    WEB <span class="text-gold font-normal">TECHNOLOGIES</span>
+                </span>
+            </a>
+
+            <!-- Desktop & Tablet Navigation -->
+            <nav aria-label="Негізгі мәзір" class="hidden md:flex items-center gap-7 text-xs tracking-[0.16em] uppercase text-mist">
+                <a href="#section-html" class="hover:text-gold-light transition-colors py-2">01. HTML</a>
+                <a href="#section-css" class="hover:text-gold-light transition-colors py-2">02. CSS</a>
+                <a href="#section-github" class="hover:text-gold-light transition-colors py-2">03. GitHub</a>
+                <a href="#section-showcase" class="px-3.5 py-1.5 rounded-full border border-gold/40 text-gold-light hover:bg-gold/15 transition-all">
+                    Қорытынды
+                </a>
+            </nav>
+
+            <!-- Mobile Quick Jump Pills -->
+            <nav aria-label="Мобильді мәзір" class="flex md:hidden items-center gap-2 text-[11px] tracking-wider uppercase">
+                <a href="#section-html" class="px-2.5 py-1.5 rounded-lg bg-charcoal border border-gold/20 text-ivory hover:border-gold">01</a>
+                <a href="#section-css" class="px-2.5 py-1.5 rounded-lg bg-charcoal border border-gold/20 text-ivory hover:border-gold">02</a>
+                <a href="#section-github" class="px-2.5 py-1.5 rounded-lg bg-charcoal border border-gold/20 text-ivory hover:border-gold">03</a>
+                <a href="#section-showcase" class="px-2.5 py-1.5 rounded-lg bg-gold/15 border border-gold/40 text-gold-light">★</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. HERO SECTION -->
+    <section id="top" class="relative luxury-glow pt-16 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8 border-b border-gold/15">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Badge / Eyebrow -->
+            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-charcoal/90 border border-gold/30 mb-8">
+                <span class="w-1.5 h-1.5 rounded-full bg-gold-light"></span>
+                <span class="text-xs sm:text-sm font-medium tracking-[0.28em] text-gold-light uppercase">
+                    WEB TECHNOLOGIES
+                </span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-ivory leading-[1.1] mb-6">
+                ВЕБ-ТЕХНОЛОГИЯЛАР
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="font-serif italic text-xl sm:text-2xl lg:text-3xl text-gold-light/95 font-medium mb-10">
+                Веб-сайттарды құру, безендіру және басқару технологиялары
+            </p>
+
+            <div class="gold-divider max-w-md mx-auto mb-10"></div>
+
+            <!-- Intro Paragraph -->
+            <div class="bg-charcoal/70 border border-gold/20 rounded-2xl p-6 sm:p-9 text-left sm:text-center shadow-2xl backdrop-blur-sm">
+                <p class="text-base sm:text-lg leading-relaxed text-ivory/90 font-light">
+                    Веб-технологиялар — интернет желісінде ақпаратты ұсынуға, веб-сайттар мен веб-қосымшаларды құруға және олардың жұмысын қамтамасыз етуге арналған технологиялар жиынтығы. Олардың көмегімен ақпараттық ресурстар, онлайн платформалар және интерактивті қызметтер жасалады.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN EDUCATIONAL CONTENT -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 space-y-24 sm:space-y-32">
+
+        <!-- ========================================================= -->
+        <!-- SECTION 01: HTML                                          -->
+        <!-- ========================================================= -->
+        <article id="section-html" class="scroll-mt-24 reveal">
+            <!-- Section Header -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-gold/20 mb-10">
+                <div>
+                    <span class="font-mono text-xs tracking-[0.25em] text-gold uppercase block mb-2">БӨЛІМ 01 · ҚҰРЫЛЫМ</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-ivory">
+                        01. HTML — веб-беттің құрылымы
+                    </h2>
+                </div>
+                <span class="font-serif text-5xl sm:text-6xl font-bold text-gold/20 select-none leading-none">01</span>
+            </div>
+
+            <!-- Core Definition Paragraphs -->
+            <div class="space-y-5 text-base sm:text-lg leading-relaxed text-ivory/90 font-light mb-12">
+                <p class="p-5 rounded-xl bg-charcoal/80 border-l-2 border-gold text-ivory">
+                    <strong class="font-semibold text-gold-light">HTML (HyperText Markup Language)</strong> — веб-беттердің құрылымын қалыптастыруға арналған гипермәтінді белгілеу тілі.
+                </p>
+                <p>
+                    HTML веб-беттегі мәтіндерді, тақырыптарды, суреттерді, сілтемелерді, кестелерді және басқа элементтерді орналастыруға мүмкіндік береді.
+                </p>
+                <p>
+                    HTML бағдарламалау тілі емес, белгілеу тілі болып саналады. Оның негізгі міндеті — браузерге веб-беттің мазмұны мен құрылымын түсіндіру.
+                </p>
+            </div>
+
+            <!-- Functions List Card -->
+            <div class="bg-charcoal rounded-2xl p-6 sm:p-8 card-border mb-12">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-gold-light mb-6">
+                    HTML тілінің негізгі қызметтері:
+                </h3>
+                <ul class="space-y-3.5 text-base sm:text-lg text-ivory/90">
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Веб-беттің құрылымын қалыптастыру;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Тақырыптар мен мәтіндерді орналастыру;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Суреттер мен сілтемелерді енгізу;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Кестелер мен тізімдер құру;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Формалар арқылы пайдаланушы ақпаратын енгізу.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Table: Негізгі HTML тегтері -->
+            <div class="mb-12">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ivory mb-5">
+                    Негізгі HTML тегтері
+                </h3>
+                <div class="overflow-x-auto rounded-2xl border border-gold/25 bg-charcoal shadow-xl">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface border-b border-gold/25 text-xs uppercase tracking-[0.18em] text-gold-light">
+                                <th class="py-4 px-5 sm:px-6 font-semibold w-1/3">Тег</th>
+                                <th class="py-4 px-5 sm:px-6 font-semibold">Қызметі</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gold/10 text-sm sm:text-base">
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;html&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">HTML құжатының негізгі элементі</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;head&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Қызметтік ақпарат</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;body&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Беттің көрінетін мазмұны</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;h1&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Бірінші деңгейлі тақырып</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;p&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Мәтіндік абзац</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;a&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Сілтеме</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">&lt;img&gt;</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Сурет</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Code Example: HTML -->
+            <div class="space-y-4">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ivory">
+                    HTML кодының мысалы:
+                </h3>
+
+                <div class="rounded-2xl overflow-hidden border border-gold/25 bg-[#09090b] shadow-2xl">
+                    <!-- Code Toolbar -->
+                    <div class="flex items-center justify-between px-4 sm:px-6 py-3 bg-surface border-b border-gold/15">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-gold/30"></span>
+                            <span class="w-3 h-3 rounded-full bg-gold/50"></span>
+                            <span class="w-3 h-3 rounded-full bg-gold"></span>
+                            <span class="ml-2 font-mono text-xs text-mist">index.html</span>
+                        </div>
+                        <button type="button" onclick="copyCode('html-code-raw', this)" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-charcoal border border-gold/30 text-gold-light hover:bg-gold hover:text-obsidian transition-all cursor-pointer">
+                            Көшіру
+                        </button>
+                    </div>
+
+                    <!-- Syntax Highlighted Code -->
+                    <pre class="p-5 sm:p-6 overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed text-ivory/95"><code id="html-code-display"><span class="text-mist">&lt;!DOCTYPE html&gt;</span>
+<span class="text-gold-light">&lt;html</span> <span class="text-amber-200/80">lang</span>=<span class="text-emerald-300/90">"kk"</span><span class="text-gold-light">&gt;</span>
+<span class="text-gold-light">&lt;head&gt;</span>
+    <span class="text-gold-light">&lt;meta</span> <span class="text-amber-200/80">charset</span>=<span class="text-emerald-300/90">"UTF-8"</span><span class="text-gold-light">&gt;</span>
+    <span class="text-gold-light">&lt;title&gt;</span><span class="text-ivory">Менің сайтым</span><span class="text-gold-light">&lt;/title&gt;</span>
+<span class="text-gold-light">&lt;/head&gt;</span>
+<span class="text-gold-light">&lt;body&gt;</span>
+    <span class="text-gold-light">&lt;h1&gt;</span><span class="text-ivory">Веб-технологиялар</span><span class="text-gold-light">&lt;/h1&gt;</span>
+    <span class="text-gold-light">&lt;p&gt;</span><span class="text-ivory">HTML веб-беттің құрылымын жасайды.</span><span class="text-gold-light">&lt;/p&gt;</span>
+<span class="text-gold-light">&lt;/body&gt;</span>
+<span class="text-gold-light">&lt;/html&gt;</span></code></pre>
+                    <textarea id="html-code-raw" class="sr-only" readonly><!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>Менің сайтым</title>
+</head>
+<body>
+    <h1>Веб-технологиялар</h1>
+    <p>HTML веб-беттің құрылымын жасайды.</p>
+</body>
+</html></textarea>
+                </div>
+
+                <!-- Exact Caption + Mini Browser Visualization -->
+                <div class="rounded-xl bg-charcoal/90 border border-gold/20 p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <p class="text-sm sm:text-base text-gold-light/95 font-medium">
+                        Мысал: браузерде тақырып пен мәтіннен тұратын қарапайым веб-бет пайда болады.
+                    </p>
+                    <!-- Visual Browser Preview -->
+                    <div class="rounded-lg bg-white text-neutral-900 p-4 border border-gold/30 lg:min-w-[320px] shadow-inner">
+                        <div class="text-[10px] uppercase tracking-wider text-neutral-400 border-b border-neutral-200 pb-1.5 mb-2 font-mono">
+                            Браузер көрінісі · Менің сайтым
+                        </div>
+                        <div class="text-lg font-bold text-neutral-900 leading-snug">Веб-технологиялар</div>
+                        <div class="text-xs text-neutral-700 mt-1">HTML веб-беттің құрылымын жасайды.</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="gold-divider"></div>
+
+        <!-- ========================================================= -->
+        <!-- SECTION 02: CSS                                           -->
+        <!-- ========================================================= -->
+        <article id="section-css" class="scroll-mt-24 reveal">
+            <!-- Section Header -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-gold/20 mb-10">
+                <div>
+                    <span class="font-mono text-xs tracking-[0.25em] text-gold uppercase block mb-2">БӨЛІМ 02 · ДИЗАЙН</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-ivory">
+                        02. CSS — веб-бетті безендіру
+                    </h2>
+                </div>
+                <span class="font-serif text-5xl sm:text-6xl font-bold text-gold/20 select-none leading-none">02</span>
+            </div>
+
+            <!-- Core Definition Paragraphs -->
+            <div class="space-y-5 text-base sm:text-lg leading-relaxed text-ivory/90 font-light mb-12">
+                <p class="p-5 rounded-xl bg-charcoal/80 border-l-2 border-gold text-ivory">
+                    <strong class="font-semibold text-gold-light">CSS (Cascading Style Sheets)</strong> — веб-беттердің сыртқы көрінісін басқаруға арналған стильдер тілі.
+                </p>
+                <p>
+                    CSS HTML арқылы құрылған элементтердің түсін, өлшемін, орналасуын, қаріп түрін және басқа да визуалды қасиеттерін өзгертуге мүмкіндік береді.
+                </p>
+                <p>
+                    HTML веб-беттің құрылымын жасаса, CSS сол құрылымның қалай көрінетінін анықтайды.
+                </p>
+            </div>
+
+            <!-- Functions List Card -->
+            <div class="bg-charcoal rounded-2xl p-6 sm:p-8 card-border mb-12">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-gold-light mb-6">
+                    CSS тілінің негізгі қызметтері:
+                </h3>
+                <ul class="space-y-3.5 text-base sm:text-lg text-ivory/90">
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Мәтіндердің түсі мен өлшемін өзгерту;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Веб-беттің фонын безендіру;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Элементтердің орналасуын реттеу;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Батырмалар мен ақпараттық блоктарды безендіру;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Сайтты әртүрлі экран өлшемдеріне бейімдеу.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Table: Негізгі CSS қасиеттері -->
+            <div class="mb-12">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ivory mb-5">
+                    Негізгі CSS қасиеттері
+                </h3>
+                <div class="overflow-x-auto rounded-2xl border border-gold/25 bg-charcoal shadow-xl">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface border-b border-gold/25 text-xs uppercase tracking-[0.18em] text-gold-light">
+                                <th class="py-4 px-5 sm:px-6 font-semibold w-1/3">Қасиет</th>
+                                <th class="py-4 px-5 sm:px-6 font-semibold">Қызметі</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gold/10 text-sm sm:text-base">
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">color</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Мәтін түсі</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">background</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Фонды орнату</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">font-size</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Қаріп өлшемі</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">margin</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Сыртқы бос орын</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">padding</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Ішкі бос орын</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">border</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Шекара орнату</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">display</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Элементтің орналасу түрі</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Code Example: CSS -->
+            <div class="space-y-4">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ivory">
+                    CSS кодының мысалы:
+                </h3>
+
+                <div class="rounded-2xl overflow-hidden border border-gold/25 bg-[#09090b] shadow-2xl">
+                    <!-- Code Toolbar -->
+                    <div class="flex items-center justify-between px-4 sm:px-6 py-3 bg-surface border-b border-gold/15">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-gold/30"></span>
+                            <span class="w-3 h-3 rounded-full bg-gold/50"></span>
+                            <span class="w-3 h-3 rounded-full bg-gold"></span>
+                            <span class="ml-2 font-mono text-xs text-mist">style.css</span>
+                        </div>
+                        <button type="button" onclick="copyCode('css-code-raw', this)" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-charcoal border border-gold/30 text-gold-light hover:bg-gold hover:text-obsidian transition-all cursor-pointer">
+                            Көшіру
+                        </button>
+                    </div>
+
+                    <!-- Syntax Highlighted Code -->
+                    <pre class="p-5 sm:p-6 overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed text-ivory/95"><code><span class="text-gold-light">body</span> {
+    <span class="text-amber-200/80">background-color</span>: <span class="text-emerald-300/90">#171717</span>;
+    <span class="text-amber-200/80">color</span>: <span class="text-emerald-300/90">white</span>;
+    <span class="text-amber-200/80">font-family</span>: <span class="text-emerald-300/90">Arial, sans-serif</span>;
+}
+<span class="text-gold-light">h1</span> {
+    <span class="text-amber-200/80">color</span>: <span class="text-emerald-300/90">#c5a46d</span>;
+    <span class="text-amber-200/80">text-align</span>: <span class="text-emerald-300/90">center</span>;
+}
+<span class="text-gold-light">p</span> {
+    <span class="text-amber-200/80">font-size</span>: <span class="text-emerald-300/90">18px</span>;
+}</code></pre>
+                    <textarea id="css-code-raw" class="sr-only" readonly>body {
+    background-color: #171717;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    color: #c5a46d;
+    text-align: center;
+}
+p {
+    font-size: 18px;
+}</textarea>
+                </div>
+
+                <!-- Exact Caption + Styled Live Result Card -->
+                <div class="rounded-xl bg-charcoal/90 border border-gold/20 p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <p class="text-sm sm:text-base text-gold-light/95 font-medium">
+                        Мысал: веб-беттің фоны қара түске, тақырып алтын түске өзгереді.
+                    </p>
+                    <!-- Visual Styled Preview -->
+                    <div class="rounded-lg bg-[#171717] text-white p-4 border border-gold/40 lg:min-w-[320px] shadow-inner">
+                        <div class="text-[10px] uppercase tracking-wider text-neutral-500 border-b border-neutral-800 pb-1.5 mb-2 font-mono">
+                            CSS қолданылған көрініс
+                        </div>
+                        <div class="text-lg font-bold text-[#c5a46d] text-center leading-snug">Веб-технологиялар</div>
+                        <div class="text-xs text-white mt-1.5">HTML веб-беттің құрылымын жасайды.</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="gold-divider"></div>
+
+        <!-- ========================================================= -->
+        <!-- SECTION 03: GITHUB                                        -->
+        <!-- ========================================================= -->
+        <article id="section-github" class="scroll-mt-24 reveal">
+            <!-- Section Header -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-gold/20 mb-10">
+                <div>
+                    <span class="font-mono text-xs tracking-[0.25em] text-gold uppercase block mb-2">БӨЛІМ 03 · БАСҚАРУ</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-ivory">
+                        03. GitHub — жобаларды сақтау және басқару
+                    </h2>
+                </div>
+                <span class="font-serif text-5xl sm:text-6xl font-bold text-gold/20 select-none leading-none">03</span>
+            </div>
+
+            <!-- Core Definition Paragraphs -->
+            <div class="space-y-5 text-base sm:text-lg leading-relaxed text-ivory/90 font-light mb-12">
+                <p class="p-5 rounded-xl bg-charcoal/80 border-l-2 border-gold text-ivory">
+                    <strong class="font-semibold text-gold-light">GitHub</strong> — бағдарламалық жобалардың бастапқы кодын сақтауға, өзгерістерін бақылауға және басқа әзірлеушілермен бірлесіп жұмыс істеуге арналған онлайн платформа.
+                </p>
+                <p>
+                    GitHub Git нұсқаларды басқару жүйесін пайдаланады. Ол жобадағы өзгерістер тарихын сақтауға және қажет болған жағдайда бұрынғы нұсқаларға оралуға мүмкіндік береді.
+                </p>
+            </div>
+
+            <!-- Platform Capabilities Card -->
+            <div class="bg-charcoal rounded-2xl p-6 sm:p-8 card-border mb-12">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-gold-light mb-6">
+                    GitHub платформасының негізгі мүмкіндіктері:
+                </h3>
+                <ul class="space-y-3.5 text-base sm:text-lg text-ivory/90">
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Бағдарламалық кодтарды онлайн сақтау;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Жоба нұсқаларын бақылау;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Бірнеше адаммен бірлесіп жұмыс істеу;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Жобаға енгізілген өзгерістерді тіркеу;</span>
+                    </li>
+                    <li class="flex items-start gap-3.5">
+                        <span class="mt-2 w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>
+                        <span>Дайын веб-сайттарды GitHub Pages арқылы жариялау.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Table: GitHub-та қолданылатын негізгі ұғымдар -->
+            <div class="mb-12">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ivory mb-5">
+                    GitHub-та қолданылатын негізгі ұғымдар
+                </h3>
+                <div class="overflow-x-auto rounded-2xl border border-gold/25 bg-charcoal shadow-xl">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface border-b border-gold/25 text-xs uppercase tracking-[0.18em] text-gold-light">
+                                <th class="py-4 px-5 sm:px-6 font-semibold w-1/3">Ұғым</th>
+                                <th class="py-4 px-5 sm:px-6 font-semibold">Түсіндірмесі</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gold/10 text-sm sm:text-base">
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">Repository</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Жоба файлдары сақталатын репозиторий</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">Commit</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Өзгерістерді тіркеу</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">Branch</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Жобаның жеке тармағы</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">Pull Request</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Өзгерістерді негізгі жобаға біріктіруді ұсыну</td>
+                            </tr>
+                            <tr class="hover:bg-white/[0.02] transition-colors">
+                                <td class="py-3.5 px-5 sm:px-6">
+                                    <code class="px-2.5 py-1 rounded-md bg-obsidian border border-gold/30 font-mono text-gold-light text-sm">GitHub Pages</code>
+                                </td>
+                                <td class="py-3.5 px-5 sm:px-6 text-ivory/90">Статикалық сайттарды жариялау қызметі</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Workflow Stages: GitHub-пен жұмыс істеу кезеңдері -->
+            <div class="mb-10">
+                <h3 class="font-serif text-2xl sm:text-3xl font-semibold text-ivory mb-6">
+                    GitHub-пен жұмыс істеу кезеңдері:
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-charcoal rounded-2xl p-5 card-border flex flex-col justify-between">
+                        <span class="font-mono text-xs text-gold mb-3">01</span>
+                        <p class="text-sm sm:text-base text-ivory/95 leading-snug">
+                            GitHub платформасында аккаунт ашу.
+                        </p>
+                    </div>
+
+                    <div class="bg-charcoal rounded-2xl p-5 card-border flex flex-col justify-between">
+                        <span class="font-mono text-xs text-gold mb-3">02</span>
+                        <p class="text-sm sm:text-base text-ivory/95 leading-snug">
+                            Жаңа Repository құру.
+                        </p>
+                    </div>
+
+                    <div class="bg-charcoal rounded-2xl p-5 card-border flex flex-col justify-between">
+                        <span class="font-mono text-xs text-gold mb-3">03</span>
+                        <p class="text-sm sm:text-base text-ivory/95 leading-snug">
+                            HTML және CSS файлдарын жүктеу.
+                        </p>
+                    </div>
+
+                    <div class="bg-charcoal rounded-2xl p-5 card-border flex flex-col justify-between">
+                        <span class="font-mono text-xs text-gold mb-3">04</span>
+                        <p class="text-sm sm:text-base text-ivory/95 leading-snug">
+                            Commit арқылы өзгерістерді сақтау.
+                        </p>
+                    </div>
+
+                    <div class="bg-charcoal rounded-2xl p-5 card-border flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+                        <span class="font-mono text-xs text-gold mb-3">05</span>
+                        <p class="text-sm sm:text-base text-ivory/95 leading-snug">
+                            GitHub Pages көмегімен веб-сайтты жариялау.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Official GitHub Link Button -->
+            <div class="pt-2">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-3 px-7 py-4 rounded-xl bg-charcoal border border-gold text-gold-light hover:bg-gold hover:text-obsidian font-medium tracking-wide transition-all duration-300 shadow-lg group">
+                    <!-- GitHub SVG Icon -->
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                    </svg>
+                    <span>GitHub ресми сайты</span>
+                    <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/>
+                    </svg>
+                </a>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- ========================================================= -->
+    <!-- 5. CLOSING SHOWCASE SECTION ("Сайттың соңғы көрінісі")    -->
+    <!-- ========================================================= -->
+    <section id="section-showcase" class="scroll-mt-20 py-20 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-gold/20 bg-charcoal/50 reveal">
+        <div class="max-w-5xl mx-auto">
+            <!-- Section label above architectural card -->
+            <div class="text-center mb-8">
+                <span class="text-xs font-mono tracking-[0.25em] uppercase text-mist">
+                    Сайттың соңғы көрінісі
+                </span>
+            </div>
+
+            <!-- Dark Luxury Architectural Finale Card -->
+            <div class="relative rounded-3xl bg-obsidian border border-gold/35 p-8 sm:p-14 lg:p-16 text-center overflow-hidden shadow-[0_25px_70px_-15px_rgba(0,0,0,0.9)]">
+                <!-- Radial Champagne Gold Ambient Glow -->
+                <div class="pointer-events-none absolute inset-0" style="background: radial-gradient(circle at 50% 0%, rgba(197, 164, 109, 0.18) 0%, rgba(12, 12, 14, 0) 70%);"></div>
+
+                <!-- Corner Architectural Accents -->
+                <div class="pointer-events-none absolute top-4 left-4 w-6 h-6 border-t border-l border-gold/40"></div>
+                <div class="pointer-events-none absolute top-4 right-4 w-6 h-6 border-t border-r border-gold/40"></div>
+                <div class="pointer-events-none absolute bottom-4 left-4 w-6 h-6 border-b border-l border-gold/40"></div>
+                <div class="pointer-events-none absolute bottom-4 right-4 w-6 h-6 border-b border-r border-gold/40"></div>
+
+                <div class="relative z-10">
+                    <!-- Eyebrow: WEB · EDUCATION -->
+                    <div class="inline-flex items-center justify-center gap-3 text-xs sm:text-sm font-medium tracking-[0.35em] text-gold-light uppercase mb-5">
+                        <span>WEB</span>
+                        <span class="text-gold">·</span>
+                        <span>EDUCATION</span>
+                    </div>
+
+                    <!-- Display Title -->
+                    <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-ivory tracking-tight mb-4">
+                        Веб-технологиялар
+                    </h2>
+
+                    <!-- Tagline -->
+                    <p class="font-serif italic text-xl sm:text-2xl text-gold-light/90 mb-12">
+                        Үш технология. Бір цифрлық кеңістік.
+                    </p>
+
+                    <!-- 3-Column Architectural Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+                        <!-- Card 01 -->
+                        <div class="rounded-2xl bg-charcoal/90 border border-gold/25 p-7 hover:border-gold-light/60 transition-all duration-300">
+                            <div class="font-mono text-sm tracking-[0.25em] text-gold mb-3">01</div>
+                            <div class="font-serif text-3xl font-bold text-ivory mb-2">HTML</div>
+                            <div class="w-8 h-px bg-gold/40 mx-auto my-3"></div>
+                            <div class="text-sm uppercase tracking-[0.2em] text-gold-light font-medium">Құрылым</div>
+                        </div>
+
+                        <!-- Card 02 -->
+                        <div class="rounded-2xl bg-charcoal/90 border border-gold/25 p-7 hover:border-gold-light/60 transition-all duration-300">
+                            <div class="font-mono text-sm tracking-[0.25em] text-gold mb-3">02</div>
+                            <div class="font-serif text-3xl font-bold text-ivory mb-2">CSS</div>
+                            <div class="w-8 h-px bg-gold/40 mx-auto my-3"></div>
+                            <div class="text-sm uppercase tracking-[0.2em] text-gold-light font-medium">Дизайн</div>
+                        </div>
+
+                        <!-- Card 03 -->
+                        <div class="rounded-2xl bg-charcoal/90 border border-gold/25 p-7 hover:border-gold-light/60 transition-all duration-300">
+                            <div class="font-mono text-sm tracking-[0.25em] text-gold mb-3">03</div>
+                            <div class="font-serif text-3xl font-bold text-ivory mb-2">GitHub</div>
+                            <div class="w-8 h-px bg-gold/40 mx-auto my-3"></div>
+                            <div class="text-sm uppercase tracking-[0.2em] text-gold-light font-medium">Басқару</div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Divider & Caption -->
+                    <div class="gold-divider max-w-2xl mx-auto mb-6"></div>
+                    <p class="font-mono text-xs sm:text-sm tracking-[0.28em] text-mist uppercase">
+                        WEB TECHNOLOGIES · HTML · CSS · GITHUB
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification for Copy Action -->
+    <div id="copy-toast" role="status" aria-live="polite"
+         class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl bg-charcoal border border-gold text-gold-light text-sm shadow-2xl opacity-0 translate-y-3 pointer-events-none transition-all duration-300 flex items-center gap-2.5">
+        <span class="w-2 h-2 rounded-full bg-gold-light"></span>
+        <span>Код алмасу буферіне көшірілді</span>
+    </div>
+
+    <script>
+        // Copy code to clipboard with fallback support for iframe environments
+        function copyCode(textareaId, buttonEl) {
+            try {
+                const textarea = document.getElementById(textareaId);
+                if (!textarea) return;
+
+                textarea.classList.remove('sr-only');
+                textarea.select();
+                textarea.setSelectionRange(0, 99999);
+                document.execCommand('copy');
+                textarea.classList.add('sr-only');
+
+                const originalText = buttonEl.textContent;
+                buttonEl.textContent = 'Көшірілді ✓';
+                buttonEl.classList.add('bg-gold', 'text-obsidian');
+
+                const toast = document.getElementById('copy-toast');
+                if (toast) {
+                    toast.classList.remove('opacity-0', 'translate-y-3');
+                    toast.classList.add('opacity-100', 'translate-y-0');
+                }
+
+                setTimeout(() => {
+                    buttonEl.textContent = originalText;
+                    buttonEl.classList.remove('bg-gold', 'text-obsidian');
+                    if (toast) {
+                        toast.classList.add('opacity-0', 'translate-y-3');
+                        toast.classList.remove('opacity-100', 'translate-y-0');
+                    }
+                }, 2200);
+            } catch (err) {
+                console.error('Көшіру кезінде қате шықты:', err);
+            }
+        }
+
+        // Smooth IntersectionObserver scroll reveal
+        document.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.08,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
